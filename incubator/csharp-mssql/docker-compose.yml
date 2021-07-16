@@ -1,0 +1,29 @@
+services:
+  server:
+    build: .
+    restart: always
+    env_file: ./root/.env
+    volumes:
+      - ./data:/var/opt/mssql/data:rw
+
+  client:
+    command: ./cli
+    build: .
+    env_file: ./root/.env
+    volumes:
+      - ./home:/home/
+    depends_on:
+      server:
+        condition: service_started
+    working_dir: /home
+
+  dotnet:
+    command: bash
+    build: ./dotnet
+    env_file: ./root/.env
+    volumes:
+      - ./home/dotnet:/home/
+    depends_on:
+      server:
+        condition: service_started
+    working_dir: /home
