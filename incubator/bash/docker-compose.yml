@@ -1,0 +1,7 @@
+services:
+  bash:
+    build: .
+    command: bash
+    volumes:
+      - ./home:/home
+    working_dir: /home
