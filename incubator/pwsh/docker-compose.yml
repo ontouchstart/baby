@@ -1,0 +1,7 @@
+services:
+  pwsh:
+    build: .
+    command: pwsh
+    volumes:
+      - ./home:/home
+    working_dir: /home
